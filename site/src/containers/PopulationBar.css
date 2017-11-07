@@ -1,0 +1,66 @@
+
+div {
+  /* border: 1px solid #000; */
+  vertical-align: top;
+}
+
+.PB {
+  border: 0;
+  width:100%;
+  padding: 30px;
+}
+
+.PB-total-population-area {
+  border-right: 1px solid #000;
+  display: inline-block;
+  width:490px;
+}
+
+.PB-total-population-number
+{
+  border: 0;
+  font-size: 80px;
+}
+
+.PB-total-population-label
+{
+  border: 0;
+  font-size: 30px;
+}
+
+
+.PB-gender-population-area {
+  width:300px;
+  padding-left: 50px;
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.PB-gender-number {
+  padding-top: 10px;
+  font-size: 22px;
+}
+
+.PB-gender-label {
+  font-size: 18px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+}
+
+
+.PB-births-deaths-area {
+  display: inline-block;
+  width:200px;
+  padding: 22px;
+  border: 1px solid #000;
+  margin: 8px;
+}
+
+.PB-births-deaths-number {
+  font-size: 50px;
+}
+
+.PB-births-deaths-label {
+  font-size: 26px;
+  padding-left: 2px;
+}
