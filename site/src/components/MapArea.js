@@ -15,7 +15,6 @@ class MapArea extends Component {
   componentDidMount(){
     this.globeScene = new GlobeScene(this.mount)
     this.globeScene.render();
-
   }
   
 }

@@ -11,7 +11,7 @@ div {
 }
 
 .PB-total-population-area {
-  border-right: 1px solid #000;
+  border-right: 1px solid #fff;
   display: inline-block;
   width:490px;
 }
@@ -52,7 +52,7 @@ div {
   display: inline-block;
   width:200px;
   padding: 22px;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   margin: 8px;
 }
 
