@@ -1,4 +1,35 @@
+import ParticleSystem from '../lib/ParticleSystem'
 const THREE = require('three');
+var OrbitControls = require('three-orbitcontrols')
+
+
+const mapPoint = (lat, lng, scale) => {
+  if(!scale){
+      scale = .5;
+  }
+  var phi = (90 - lat) * Math.PI / 180;
+  var theta = (180 - lng) * Math.PI / 180;
+  var x = scale * Math.sin(phi) * Math.cos(theta);
+  var y = scale * Math.cos(phi);
+  var z = scale * Math.sin(phi) * Math.sin(theta);
+  return {x: x, y: y, z:z};
+};
+
+let colors ={
+  'birth': new THREE.Color(0xff70e2),
+  'death': new THREE.Color(0x1e90ff),
+  'condition-onset': new THREE.Color(0xe32434),
+  'condition-abatement': new THREE.Color(0x607d14),
+  'procedure': new THREE.Color(0xf1a811),
+  'encounter': new THREE.Color(0x336699) 
+
+}
+
+let globalStartTime = Date.now();
+
+function thisTime() {
+  return Date.now() - globalStartTime;
+}
 
 export default class GlobeScene {
 
@@ -26,7 +57,7 @@ export default class GlobeScene {
 
     // material.map = new THREE.TextureLoader().load('images/earthmap1k.jpg')
     var earthMesh = new THREE.Mesh(geometry, material)
-    earthMesh.rotation.x = .25
+    earthMesh.rotation.x = .35
     earthMesh.rotation.y = .28
     scene.add(earthMesh)
 
@@ -71,6 +102,9 @@ export default class GlobeScene {
     camera.position.z = .65
     camera.position.y = .15
     camera.position.x = .10
+    // let cameraPos = mapPoint(0, 0)
+    // camera.lookAt(cameraPos.x, cameraPos.y, cameraPos.z)
+    // camera.lookAt(cameraPos.x, cameraPos.y, cameraPos.z)
     renderer.setClearColor('#000000')
     renderer.setSize(width, height)
 
@@ -80,11 +114,36 @@ export default class GlobeScene {
     this.material = material
     this.earthMesh = earthMesh
 
+    this.particleSystem = new ParticleSystem();
+    earthMesh.add(this.particleSystem.particleSystem)
+
+    canvas.appendChild(this.renderer.domElement)
+
+    this.renderer.domElement.onclick = () => {
+      new OrbitControls(camera, renderer.domElement)
+    }
+
     canvas.appendChild(this.renderer.domElement)
   }
 
   animate(){
 
+  }
+  addEvent(lastEvent){
+
+    let coords = mapPoint(lastEvent.lat, lastEvent.lon);
+    // this.particleSystem.geometry.attributes.position.array[this.particleSystem.currentIndex * 3] = (((70+lastEvent.lon)/-50) - .5) * 2; 
+    // this.particleSystem.geometry.attributes.position.array[this.particleSystem.currentIndex * 3 + 1] = .05
+    // this.particleSystem.geometry.attributes.position.array[this.particleSystem.currentIndex * 3 + 2] = (((lastEvent.lat-31)/17) - .5) * 2 / 1.6;
+    this.particleSystem.geometry.attributes.position.array[this.particleSystem.currentIndex * 3] = coords.x; 
+    this.particleSystem.geometry.attributes.position.array[this.particleSystem.currentIndex * 3 + 1] = coords.y
+    this.particleSystem.geometry.attributes.position.array[this.particleSystem.currentIndex * 3 + 2] = coords.z
+    this.particleSystem.geometry.attributes.customColor.array[this.particleSystem.currentIndex * 3] = colors[lastEvent.type].r;
+    this.particleSystem.geometry.attributes.customColor.array[this.particleSystem.currentIndex * 3 + 1] = colors[lastEvent.type].g; 
+    this.particleSystem.geometry.attributes.customColor.array[this.particleSystem.currentIndex * 3 + 2] = colors[lastEvent.type].b;
+    this.particleSystem.geometry.attributes.startTime.array[this.particleSystem.currentIndex] = thisTime();
+
+    this.particleSystem.incrementIndex();
   }
 
   render(time){
@@ -96,6 +155,8 @@ export default class GlobeScene {
     if(delta){
         this.cloudMesh.rotation.y += delta/100000;
     }
+
+    this.particleSystem.animate(time)
 
     this.renderer.render(this.scene, this.camera)
     requestAnimationFrame(this.render.bind(this))

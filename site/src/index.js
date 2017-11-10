@@ -10,12 +10,22 @@ import App from './containers/App'
 
 import registerServiceWorker from './registerServiceWorker';
 
+import startStream from './lib/Stream'
+
+require('event-source-polyfill');
+
 const middleware = [ thunk ];
 
 const store = createStore(
   reducer,
   applyMiddleware(...middleware)
 )
+
+startStream(store);
+
+// const unsubscribe = store.subscribe(() =>
+//   console.log(store.getState())
+// )
 
 render(<Provider store={store}>
           <App />

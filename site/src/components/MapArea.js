@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import './MapArea.css';
 import GlobeScene from '../lib/GlobeScene'
 
-const THREE = require('three');
+
+
 
 class MapArea extends Component {
+  constructor(props) {
+    super(props)
+    console.log(props)
+  }
   render() {
     return (
       <div ref={(mount) => { this.mount = mount }} className="MapArea">
@@ -15,6 +20,10 @@ class MapArea extends Component {
   componentDidMount(){
     this.globeScene = new GlobeScene(this.mount)
     this.globeScene.render();
+  }
+  componentDidUpdate(){
+    this.globeScene.addEvent(this.props.lastEvent)
+    // console.log(this.props.lastEvent.lat + ',' + this.props.lastEvent.lon)
   }
   
 }
