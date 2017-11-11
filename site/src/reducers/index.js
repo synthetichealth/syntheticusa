@@ -11,7 +11,10 @@ import {BIRTH, DEATH} from '../actions/'
 // malePopulation
 // femalePopul
 
-const MAX_EVENTS = 100
+const PEOPLE_PER_COLUMN = 5
+const MAX_EVENTS = 1000
+
+let eventId = 0
 
 const defaultState = {
   connected: false,
@@ -20,8 +23,11 @@ const defaultState = {
   femalePopulation: 1000000,
   births: 0,
   deaths: 0,
-  recentEvents: new Array(MAX_EVENTS).fill(null)
-
+  recentEvents: new Array(MAX_EVENTS).fill(null),
+  treadMillOffset: -1,
+  treadMillRate: 0,
+  currentColumnIndex: -1,
+  currentRowIndex: -1,
 }
 
 const rootReducer = (state = defaultState, action) => {
@@ -29,8 +35,22 @@ const rootReducer = (state = defaultState, action) => {
   let femalePopulation = state.femalePopulation;
 
   let newEvents = [...state.recentEvents]
-  newEvents.shift()
-  newEvents.push(action)
+
+  if(action.type !== '@@redux/INIT'){
+
+    state.currentColumnIndex = (state.currentColumnIndex + 1) % PEOPLE_PER_COLUMN
+
+    if(state.currentColumnIndex === 0){
+      state.currentRowIndex++;
+      state.treadMillOffset++;
+    }
+
+    newEvents.shift()
+    newEvents.push({...action, currentColumnIndex: state.currentColumnIndex, currentRowIndex: state.currentRowIndex, key: eventId++})
+
+  }
+
+  // console.log(newEvents)
 
   switch(action.type){
     case BIRTH:

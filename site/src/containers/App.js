@@ -3,20 +3,20 @@ import logo from './logo.svg';
 import './App.css';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import PopulationBar from './PopulationBar'
-import PeopleArea from './PeopleArea'
+import PopulationBar from '../components/PopulationBar'
+import PeopleArea from '../components/PeopleArea'
 import MapArea from '../components/MapArea'
 import Stats from '../components/Stats'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 
-const App = ({population, malePopulation, femalePopulation, births, deaths, recentEvents, lastEvent}) => (
+const App = ({population, malePopulation, femalePopulation, births, deaths, recentEvents, treadMillOffset, lastEvent}) => (
   <div className="App">
     <Header />
     <PopulationBar population={population} malePopulation={malePopulation} femalePopulation={femalePopulation} births={births} deaths={deaths}/>
     <MapArea lastEvent = {lastEvent}/>
     <Stats />
-    <PeopleArea recentEvents = {recentEvents}/>
+    <PeopleArea recentEvents = {recentEvents} treadMillOffset = {treadMillOffset}/>
     <Footer />
   </div>
 )
@@ -37,6 +37,7 @@ const mapStateToProps = state => ({
   births: state.births,
   deaths: state.deaths,
   recentEvents: state.recentEvents,
+  treadMillOffset: state.treadMillOffset,
   lastEvent: state.lastEvent,
 })
 

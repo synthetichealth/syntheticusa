@@ -5,7 +5,7 @@ var OrbitControls = require('three-orbitcontrols')
 
 const mapPoint = (lat, lng, scale) => {
   if(!scale){
-      scale = .5;
+      scale = .501;
   }
   var phi = (90 - lat) * Math.PI / 180;
   var theta = (180 - lng) * Math.PI / 180;
