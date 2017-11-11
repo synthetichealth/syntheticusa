@@ -24,7 +24,7 @@ const vertexShader = `
 
     vec4 mvPosition = modelViewMatrix * vec4( positionUpdate, 1.01 );
 
-    gl_PointSize = size * ( 100.0 / -mvPosition.z );
+    gl_PointSize = size * ( 300.0 / -mvPosition.z );
     // gl_PointSize = size * ( 300.0 / -mvPosition.z ) / ((currentTime - startTime) / 2000.);
 
     gl_Position = projectionMatrix * mvPosition;
@@ -108,7 +108,7 @@ export default class ParticleSystem {
       colors[ i3 + 1 ] = color.g;
       colors[ i3 + 2 ] = color.b;
 
-      sizes[ i ] = .1;
+      sizes[ i ] = .02;
       startTimes[ i ] = Date.now();
 
     }

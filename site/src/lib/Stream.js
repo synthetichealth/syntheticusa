@@ -1,9 +1,9 @@
-import {deathEvent, birthEvent} from '../actions/'
+import {deathEvent, birthEvent, encounterEvent, conditionOnsetEvent, conditionAbatementEvent, procedureEvent} from '../actions/'
 require('event-source-polyfill');
 
 export default store => {
 
-  let es = new window.EventSourcePolyfill('http://localhost:1337/events?eps=50')
+  let es = new window.EventSourcePolyfill('http://localhost:1337/events?eps=20')
 
   let listener = function (event) {
     let data = JSON.parse(event.data)
@@ -13,6 +13,18 @@ export default store => {
         break
       case 'birth':
         store.dispatch(birthEvent(data.name, data.gender, data.birthdate, data.lat, data.lon));
+        break
+      case 'encounter':
+        store.dispatch(encounterEvent(data.class, data.code, data.name, data.gender, data.birthdate, data.lat, data.lon));
+        break
+      case 'condition-onset':
+        store.dispatch(conditionOnsetEvent(data.value, data.name, data.gender, data.birthdate, data.lat, data.lon));
+        break
+      case 'condition-abatement':
+        store.dispatch(conditionAbatementEvent(data.value, data.name, data.gender, data.birthdate, data.lat, data.lon));
+        break
+      case 'procedure':
+        store.dispatch(procedureEvent(data.code, data.name, data.gender, data.birthdate, data.lat, data.lon));
         break
     }
 

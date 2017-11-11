@@ -1,3 +1,12 @@
-.Header {
+.Stats {
+  display: inline-block;
   text-align: center;
+  position: absolute;
+  width: 505px;
+  border: 1px solid #fff;
+  height: 500px;
+  overflow: hidden;
+  top: 220px;
+  left: 1286px;
 }
+

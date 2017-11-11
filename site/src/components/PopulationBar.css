@@ -13,13 +13,13 @@ div {
 .PB-total-population-area {
   border-right: 1px solid #fff;
   display: inline-block;
-  width:490px;
+  width:550px;
 }
 
 .PB-total-population-number
 {
   border: 0;
-  font-size: 80px;
+  font-size: 90px;
 }
 
 .PB-total-population-label
@@ -38,7 +38,7 @@ div {
 
 .PB-gender-number {
   padding-top: 10px;
-  font-size: 22px;
+  font-size: 30px;
 }
 
 .PB-gender-label {
@@ -47,6 +47,13 @@ div {
   padding-left: 2px;
 }
 
+.PB-births-deaths-container {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  width: 550px;
+  float: right;
+}
 
 .PB-births-deaths-area {
   display: inline-block;

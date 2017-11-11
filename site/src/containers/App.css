@@ -1,7 +1,16 @@
 @import url(//fonts.googleapis.com/css?family=Roboto);
 
+body {
+  background-color: black;
+}
+
 .App {
   color: white;
   background-color: black;
   font-family: 'Roboto';
+  width: 1800px;
+  height: 960px;
+  padding: 0px;
+  margin: 0px;
+  /* border: 5px solid #ff0000; */
 }

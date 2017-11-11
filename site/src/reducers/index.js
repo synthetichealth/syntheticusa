@@ -1,4 +1,4 @@
-import {BIRTH, DEATH} from '../actions/'
+import {BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER} from '../actions/'
 // import { combineReducers } from 'redux'
 
 
@@ -12,15 +12,15 @@ import {BIRTH, DEATH} from '../actions/'
 // femalePopul
 
 const PEOPLE_PER_COLUMN = 5
-const MAX_EVENTS = 1000
+const MAX_EVENTS = 250
 
 let eventId = 0
 
 const defaultState = {
   connected: false,
-  population: 1000000000,
-  malePopulation: 1000000,
-  femalePopulation: 1000000,
+  population: 345123433,
+  malePopulation: 345123432/2,
+  femalePopulation: 345123432/2,
   births: 0,
   deaths: 0,
   recentEvents: new Array(MAX_EVENTS).fill(null),
@@ -36,7 +36,7 @@ const rootReducer = (state = defaultState, action) => {
 
   let newEvents = [...state.recentEvents]
 
-  if(action.type !== '@@redux/INIT'){
+  if(action.type === 'birth' || action.type === 'death' || action.type === 'encounter'){
 
     state.currentColumnIndex = (state.currentColumnIndex + 1) % PEOPLE_PER_COLUMN
 
@@ -78,6 +78,12 @@ const rootReducer = (state = defaultState, action) => {
         population: state.population - 1, 
         malePopulation: malePopulation, 
         femalePopulation: femalePopulation,
+        recentEvents: newEvents,
+        lastEvent: action
+      })
+
+    case ENCOUNTER:
+      return Object.assign({}, state, {
         recentEvents: newEvents,
         lastEvent: action
       })

@@ -16,12 +16,12 @@ const mapPoint = (lat, lng, scale) => {
 };
 
 let colors ={
-  'birth': new THREE.Color(0xff70e2),
-  'death': new THREE.Color(0x1e90ff),
+  'birth': new THREE.Color(0x0000ff),
+  'death': new THREE.Color(0xff0000),
   'condition-onset': new THREE.Color(0xe32434),
   'condition-abatement': new THREE.Color(0x607d14),
   'procedure': new THREE.Color(0xf1a811),
-  'encounter': new THREE.Color(0x336699) 
+  'encounter': new THREE.Color(0xaaaaaa) 
 
 }
 
@@ -46,7 +46,7 @@ export default class GlobeScene {
     )
     const renderer = new THREE.WebGLRenderer({ antialias: true })
 
-    var geometry   = new THREE.SphereGeometry(0.5, 64, 64)
+    var geometry   = new THREE.SphereGeometry(0.5, 32, 32)
     var material  = new THREE.MeshPhongMaterial({
         map: new THREE.TextureLoader().load('images/2_no_clouds_2k.jpg'),
         bumpMap: new THREE.TextureLoader().load('images/elev_bump_2k.jpg'),
@@ -57,8 +57,8 @@ export default class GlobeScene {
 
     // material.map = new THREE.TextureLoader().load('images/earthmap1k.jpg')
     var earthMesh = new THREE.Mesh(geometry, material)
-    earthMesh.rotation.x = .35
-    earthMesh.rotation.y = .28
+    earthMesh.rotation.x = .25
+    earthMesh.rotation.y = .30
     scene.add(earthMesh)
 
 
@@ -69,7 +69,7 @@ export default class GlobeScene {
     scene.add( light2 )
     light2.castShadow  = true
 
-    var cloudGeometry   = new THREE.SphereGeometry(0.51, 64, 64)
+    var cloudGeometry   = new THREE.SphereGeometry(0.51, 32, 32)
     var cloudMaterial  = new THREE.MeshPhongMaterial({
         map: THREE.ImageUtils.loadTexture('images/earthcloudmap.png'),
         opacity     : .7,
@@ -101,7 +101,7 @@ export default class GlobeScene {
 
     camera.position.z = .65
     camera.position.y = .15
-    camera.position.x = .10
+    camera.position.x = .08
     // let cameraPos = mapPoint(0, 0)
     // camera.lookAt(cameraPos.x, cameraPos.y, cameraPos.z)
     // camera.lookAt(cameraPos.x, cameraPos.y, cameraPos.z)
