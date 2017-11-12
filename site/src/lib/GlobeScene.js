@@ -159,7 +159,6 @@ export default class GlobeScene {
     this.particleSystem.animate(time)
 
     this.renderer.render(this.scene, this.camera)
-    requestAnimationFrame(this.render.bind(this))
 
   }
 

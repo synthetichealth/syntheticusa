@@ -11,6 +11,7 @@ import App from './containers/App'
 import registerServiceWorker from './registerServiceWorker';
 
 import startStream from './lib/Stream'
+import {frameEvent} from './actions'
 
 require('event-source-polyfill');
 
@@ -22,6 +23,14 @@ const store = createStore(
 )
 
 startStream(store);
+
+const frame = (time) => {
+  store.dispatch(frameEvent(time));
+  requestAnimationFrame(frame);
+}
+
+frame(0);
+
 
 // const unsubscribe = store.subscribe(() =>
 //   console.log(store.getState())

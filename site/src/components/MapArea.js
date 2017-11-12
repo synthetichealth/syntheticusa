@@ -21,10 +21,18 @@ class MapArea extends Component {
     this.globeScene = new GlobeScene(this.mount)
     this.globeScene.render();
   }
-  componentDidUpdate(){
-    this.globeScene.addEvent(this.props.lastEvent)
-    // console.log(this.props.lastEvent.lat + ',' + this.props.lastEvent.lon)
+
+  componentWillReceiveProps(lastProp){
+    if(lastProp.time !== this.props.time){
+      this.globeScene.render(this.props.time)
+    }
+    if((!lastProp.lastEvent && this.props.lastEvent) || (this.props.lastEvent && 
+                                                        this.props.lastEvent.name !== lastProp.lastEvent.name && 
+                                                        this.props.lastEvent.type !== lastProp.lastEvent.type)){
+      this.globeScene.addEvent(this.props.lastEvent)
+    }
   }
+
   
 }
 

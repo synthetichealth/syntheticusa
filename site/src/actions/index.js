@@ -1,3 +1,4 @@
+export const FRAME = 'frame'
 
 export const DEATH = 'death'
 export const BIRTH = 'birth'
@@ -5,6 +6,10 @@ export const ENCOUNTER = 'encounter'
 export const CONDITION_ONSET = 'condition-onset'
 export const CONDITION_ABATEMENT = 'condition-abatement'
 export const PROCEDURE = 'procedure'
+
+export const frameEvent = (time) => {
+  return {type: FRAME, time}
+};
 
 export const deathEvent = (name, gender, birthdate, lat, lon) => ({
     type: DEATH,

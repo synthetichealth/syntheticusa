@@ -1,4 +1,4 @@
-import {BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER} from '../actions/'
+import {BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER, FRAME} from '../actions/'
 // import { combineReducers } from 'redux'
 
 
@@ -17,6 +17,7 @@ const MAX_EVENTS = 250
 let eventId = 0
 
 const defaultState = {
+  time: 0, 
   connected: false,
   population: 345123433,
   malePopulation: 345123432/2,
@@ -87,6 +88,11 @@ const rootReducer = (state = defaultState, action) => {
         recentEvents: newEvents,
         lastEvent: action
       })
+    case FRAME:
+      return Object.assign({}, state, {
+        time: action.time,
+      })
+
     default:
       return state
   }

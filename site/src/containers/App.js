@@ -10,11 +10,11 @@ import Stats from '../components/Stats'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 
-const App = ({population, malePopulation, femalePopulation, births, deaths, recentEvents, treadMillOffset, lastEvent}) => (
+const App = ({population, malePopulation, femalePopulation, births, deaths, recentEvents, treadMillOffset, lastEvent, time}) => (
   <div className="App">
     <Header />
     <PopulationBar population={population} malePopulation={malePopulation} femalePopulation={femalePopulation} births={births} deaths={deaths}/>
-    <MapArea lastEvent = {lastEvent}/>
+    <MapArea lastEvent = {lastEvent} time = {time}/>
     <Stats />
     <PeopleArea recentEvents = {recentEvents} treadMillOffset = {treadMillOffset}/>
     <Footer />
@@ -39,6 +39,7 @@ const mapStateToProps = state => ({
   recentEvents: state.recentEvents,
   treadMillOffset: state.treadMillOffset,
   lastEvent: state.lastEvent,
+  time: state.time,
 })
 
 const mapDispatchToProps = dispatch => ({
