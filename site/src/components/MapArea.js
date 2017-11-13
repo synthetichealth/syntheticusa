@@ -26,9 +26,9 @@ class MapArea extends Component {
     if(lastProp.time !== this.props.time){
       this.globeScene.render(this.props.time)
     }
-    if((!lastProp.lastEvent && this.props.lastEvent) || (this.props.lastEvent && 
-                                                        this.props.lastEvent.name !== lastProp.lastEvent.name && 
-                                                        this.props.lastEvent.type !== lastProp.lastEvent.type)){
+    if((!lastProp.lastEvent && this.props.lastEvent) || (this.props.lastEvent && !(
+                                                        this.props.lastEvent.name === lastProp.lastEvent.name && 
+                                                        this.props.lastEvent.type === lastProp.lastEvent.type))){
       this.globeScene.addEvent(this.props.lastEvent)
     }
   }

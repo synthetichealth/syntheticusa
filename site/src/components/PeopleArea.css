@@ -16,6 +16,12 @@ div {
   overflow: hidden;
 }
 
+.PA-container {
+  position: relative;
+  top: 0; 
+  left: 0;
+}
+
 .PA-person {
   position: absolute;
 }
