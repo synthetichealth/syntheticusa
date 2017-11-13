@@ -120,7 +120,9 @@ export default class GlobeScene {
     canvas.appendChild(this.renderer.domElement)
 
     this.renderer.domElement.onclick = () => {
-      new OrbitControls(camera, renderer.domElement)
+      let controls = new OrbitControls(camera, renderer.domElement)
+      controls.minDistance=.6
+      controls.maxDistance=2
     }
 
     canvas.appendChild(this.renderer.domElement)

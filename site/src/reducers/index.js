@@ -1,8 +1,7 @@
-import {BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER, FRAME} from '../actions/'
+import {FRAME, PAUSE, PLAY, PEEK_PERSON, BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER} from '../actions/'
 // import { combineReducers } from 'redux'
 
-
-
+// playing
 // connected
 // recentEvents
 // births
@@ -18,6 +17,8 @@ let eventId = 0
 
 const defaultState = {
   time: 0, 
+  playing: true,
+  peekPerson: null,
   connected: false,
   population: 345123433,
   malePopulation: 345123432/2,
@@ -37,24 +38,45 @@ const rootReducer = (state = defaultState, action) => {
 
   let newEvents = [...state.recentEvents]
 
-  if(action.type === 'birth' || action.type === 'death' || action.type === 'encounter'){
+  if(state.playing){
+    if(action.type === 'birth' || action.type === 'death' || action.type === 'encounter'){
 
-    state.currentColumnIndex = (state.currentColumnIndex + 1) % PEOPLE_PER_COLUMN
+      state.currentColumnIndex = (state.currentColumnIndex + 1) % PEOPLE_PER_COLUMN
 
-    if(state.currentColumnIndex === 0){
-      state.currentRowIndex++;
-      state.treadMillOffset++;
+      if(state.currentColumnIndex === 0){
+        state.currentRowIndex++;
+        state.treadMillOffset++;
+      }
+
+      newEvents.shift()
+      newEvents.push({...action, currentColumnIndex: state.currentColumnIndex, currentRowIndex: state.currentRowIndex, key: eventId++})
+
     }
-
-    newEvents.shift()
-    newEvents.push({...action, currentColumnIndex: state.currentColumnIndex, currentRowIndex: state.currentRowIndex, key: eventId++})
-
   }
+
+  // if(action.type === PEEK_PERSON){
+  //   alert('there')
+  // }
 
   // console.log(newEvents)
 
   switch(action.type){
+    case FRAME:
+      return Object.assign({}, state, {
+        time: action.time,
+      })
+    case PAUSE:
+      return Object.assign({}, state, {
+        playing: false,
+      })
+    case PLAY:
+      return Object.assign({}, state, {
+        playing: true,
+      })
+    case PEEK_PERSON:
+      return Object.assign({}, state, {peekPerson: action.id});
     case BIRTH:
+      if(!state.playing){return Object.assign({}, state, {})}
       if(action.gender === 'male'){
         malePopulation++;
       } else {
@@ -69,6 +91,7 @@ const rootReducer = (state = defaultState, action) => {
         lastEvent: action
       })
     case DEATH:
+      if(!state.playing){return Object.assign({}, state, {})}
       if(action.gender === 'male'){
         malePopulation--;
       } else {
@@ -84,13 +107,10 @@ const rootReducer = (state = defaultState, action) => {
       })
 
     case ENCOUNTER:
+      if(!state.playing){return Object.assign({}, state, {})}
       return Object.assign({}, state, {
         recentEvents: newEvents,
         lastEvent: action
-      })
-    case FRAME:
-      return Object.assign({}, state, {
-        time: action.time,
       })
 
     default:

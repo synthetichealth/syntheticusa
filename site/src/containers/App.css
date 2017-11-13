@@ -14,3 +14,12 @@ body {
   margin: 0px;
   /* border: 5px solid #ff0000; */
 }
+
+.App-paused {
+  position:absolute;
+  top: 400px;
+  left: 300px;
+  z-index:20;
+  font-size: 80px;
+  display: none;
+}
