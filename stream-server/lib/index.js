@@ -194,7 +194,7 @@ var randomPosition = function(){
     y = Math.floor(Math.random() * map_height);
   }
 
-  return [31 + (y / map_height) * 17, -70 - 50 * (x / map_width)]
+  return [25 + (1 - y / map_height) * 25, -69 - 55 * (1- x / map_width)]
 }
 
 
