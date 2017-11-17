@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './PeopleArea.css';
 
 const PERSON_HEIGHT = 38;
 const PERSON_WIDTH = 38;
 const PADDING = 5;
-export default ({recentEvents, treadMillOffset, onPeopleEnter, onPeopleLeave, peekPerson, onPeekPerson}) => {
+export default ({recentEvents, treadMillOffset, onPeopleEnter, onPeopleLeave, peekPerson, onPeekPerson, onPeopleClick}) => {
   return (
     <div className="PA" onMouseEnter={onPeopleEnter} onMouseLeave={onPeopleLeave}>
        <div className="PA-container" style={{left: treadMillOffset * PERSON_WIDTH}}>
@@ -19,7 +19,7 @@ export default ({recentEvents, treadMillOffset, onPeopleEnter, onPeopleLeave, pe
              className += ' PA-person-peek'
            }
 
-           return <img src='images/person.png' className={className} key={item.key} style={style} onMouseEnter={onPeekPerson.bind(this, item.key)}/>
+           return <img alt='person' src='images/person.png' className={className} key={item.key} style={style} onMouseEnter={onPeekPerson.bind(this, item.key)} onClick={onPeopleClick.bind(this, item.key)}/>
          })}
        </div>
     </div>

@@ -1,4 +1,4 @@
-import {FRAME, PAUSE, PLAY, PEEK_PERSON, BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER} from '../actions/'
+import {FRAME, PAUSE, PLAY, PEEK_PERSON, SHOW_PERSON, CLOSE_PERSON, BIRTH, DEATH, ENCOUNTER_ONSET, ENCOUNTER_ABATEMENT, PROCEDURE, ENCOUNTER} from '../actions/'
 // import { combineReducers } from 'redux'
 
 // playing
@@ -19,6 +19,7 @@ const defaultState = {
   time: 0, 
   playing: true,
   peekPerson: null,
+  showPerson: null,
   connected: false,
   population: 345123433,
   malePopulation: 345123432/2,
@@ -75,6 +76,14 @@ const rootReducer = (state = defaultState, action) => {
       })
     case PEEK_PERSON:
       return Object.assign({}, state, {peekPerson: action.id});
+    case SHOW_PERSON:
+      // console.log(action)
+      // alert(`Show Person ${action.id}`);
+      return Object.assign({}, state, {peekPerson: null, showPerson: action.id, playing: false});
+    case CLOSE_PERSON:
+      // console.log(action)
+      // alert(`Show Person ${action.id}`);
+      return Object.assign({}, state, {showPerson: null, playing: true});
     case BIRTH:
       if(!state.playing){return Object.assign({}, state, {})}
       if(action.gender === 'male'){

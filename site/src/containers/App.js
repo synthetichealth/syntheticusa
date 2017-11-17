@@ -1,31 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PopulationBar from '../components/PopulationBar'
 import PeopleArea from '../components/PeopleArea'
+import PeopleDetails from '../components/PeopleDetails'
 import MapArea from '../components/MapArea'
 import Stats from '../components/Stats'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import {play, pause, peekPerson} from '../actions/'
+import {play, pause, peekPerson, showPerson, closePerson} from '../actions/'
 
-const App = ({playing, population, malePopulation, femalePopulation, births, deaths, recentEvents, treadMillOffset, lastEvent, time, onPeopleEnter, onPeopleLeave, peekPerson, onPeekPerson}) => {
+const App = ({playing, population, malePopulation, femalePopulation, births, deaths, recentEvents, treadMillOffset, lastEvent, time, onPeopleEnter, onPeopleLeave, onPeopleClick, peekPerson, onPeekPerson, onClosePerson, showPerson}) => {
   let playStyle = {display: 'none'}
   if(!playing){
     playStyle = {display: 'block'}
   }
+
+  let mainStyle = {display: 'block'}
+  if(showPerson){
+    mainStyle = {display: 'none'}
+  }
+
   
   return (
     <div className="App">
       <Header />
-      <PopulationBar population={population} malePopulation={malePopulation} femalePopulation={femalePopulation} births={births} deaths={deaths}/>
-      <MapArea lastEvent = {lastEvent} time = {time}/>
-      <Stats />
-      <PeopleArea recentEvents = {recentEvents} treadMillOffset = {treadMillOffset} peekPerson={peekPerson} onPeopleEnter={onPeopleEnter} onPeopleLeave={onPeopleLeave} onPeekPerson={onPeekPerson}/>
-      <Footer />
-      <div class="App-paused" style={playStyle}>PAUSED</div>
+      <div className='App-main' style={mainStyle}>
+        <PopulationBar population={population} malePopulation={malePopulation} femalePopulation={femalePopulation} births={births} deaths={deaths}/>
+        <MapArea lastEvent = {lastEvent} time = {time}/>
+        <Stats />
+        <PeopleArea recentEvents = {recentEvents} treadMillOffset = {treadMillOffset} peekPerson={peekPerson} onPeopleEnter={onPeopleEnter} onPeopleLeave={onPeopleLeave} onPeopleClick={onPeopleClick} onPeekPerson={onPeekPerson}/>
+        <Footer />
+        <div className="App-paused" style={playStyle}>PAUSED</div>
+      </div>
+      <PeopleDetails showPerson={showPerson} onClosePerson = {onClosePerson} />
+
     </div>
   )
 }
@@ -50,7 +60,8 @@ const mapStateToProps = state => ({
   lastEvent: state.lastEvent,
   time: state.time,
   playing: state.playing,
-  peekPerson: state.peekPerson
+  peekPerson: state.peekPerson,
+  showPerson: state.showPerson,
 })
 
 const mapDispatchToProps = dispatch => {
@@ -61,8 +72,14 @@ const mapDispatchToProps = dispatch => {
     onPeopleLeave: () => {
       dispatch(play());
     },
+    onPeopleClick: (id) => {
+      dispatch(showPerson(id));
+    },
     onPeekPerson: (id) => {
       dispatch(peekPerson(id))
+    },
+    onClosePerson: (id) => {
+      dispatch(closePerson())
     }
   }
   // actions: bindActionCreators(TodoActions, dispatch)

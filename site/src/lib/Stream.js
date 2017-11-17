@@ -3,7 +3,7 @@ require('event-source-polyfill');
 
 export default store => {
 
-  let es = new window.EventSourcePolyfill('http://localhost:1337/events?eps=20')
+  let es = new window.EventSourcePolyfill('http://localhost:1337/events?eps=50')
 
   let listener = function (event) {
     let data = JSON.parse(event.data)
@@ -26,6 +26,8 @@ export default store => {
       case 'procedure':
         store.dispatch(procedureEvent(data.code, data.name, data.gender, data.birthdate, data.lat, data.lon));
         break
+      default:
+        break;
     }
 
     // if(data.type == 'meta-connect'){

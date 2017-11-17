@@ -5,6 +5,8 @@ export const PLAY = 'play'
 
 export const PEEK_PERSON = 'peekPerson'
 export const CLEAR_PEEK = 'clearPeek'
+export const SHOW_PERSON = 'showPerson'
+export const CLOSE_PERSON = 'closePerson'
 
 export const DEATH = 'death'
 export const BIRTH = 'birth'
@@ -27,6 +29,14 @@ export const play = () => {
 
 export const peekPerson = (id, name) => {
   return {type: PEEK_PERSON, id, name}
+};
+
+export const showPerson = (id) => {
+  return {type: SHOW_PERSON, id}
+};
+
+export const closePerson = () => {
+  return {type: CLOSE_PERSON}
 };
 
 export const clearPeek = (id) => {
