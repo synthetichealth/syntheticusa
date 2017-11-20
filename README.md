@@ -7,7 +7,7 @@ SyntheticUSA is  is a model of synthetic residents of the United States, with ar
 This project is currently early in the development phase, and all components in this repository are prototypes that are not yet stable.  These components currently include:
 
 * [/site](/site): Prototype front-end dashboard to allow users to explore the synthetic population
-* [/stream-server](/stream-server): Prototype real-time http stream service to display medical events in the synthteic population as they happen
+* [/stream-server](/stream-server): Prototype real-time http stream service to display medical events in the synthetic population as they happen
 
 ## License
 
