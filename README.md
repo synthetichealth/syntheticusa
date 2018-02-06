@@ -8,6 +8,7 @@ This project is currently early in the development phase, and all components in 
 
 * [/site](/site): Prototype front-end dashboard to allow users to explore the synthetic population
 * [/stream-server](/stream-server): Prototype real-time http stream service to display medical events in the synthetic population as they happen
+* [/fhir-to-csv](/fhir-to-csv): Helper script that transforms a directory of FHIR STU3 resources exported from synthea into a csv file suitable to upload into data visualization tools.
 
 ## License
 
