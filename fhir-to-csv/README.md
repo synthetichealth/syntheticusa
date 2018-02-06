@@ -2,7 +2,7 @@
 
 ## fhir-to-csv.js
 
-This Node.js script exports a directory of FHIR DSTU3 patient health records into CSV format, suitable for
+This Node.js script exports a directory of FHIR STU3 patient health records into CSV format, suitable for
 import into data visualization tools, such as [MapD Immerse](https://mapd.com/platform/immerse). It was written to explore options for visualing large sets of synthetic patient medical records.
 
 
