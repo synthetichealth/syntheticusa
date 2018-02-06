@@ -3,19 +3,21 @@
 ## fhir-to-csv.js
 
 This Node.js script exports a directory of FHIR DSTU3 patient health records into CSV format, suitable for
-import into data visualization tools, such as [https://mapd.com/platform/immerse](MapD Immerse):
+import into data visualization tools, such as [MapD Immerse](https://mapd.com/platform/immerse). It was written to explore options for visualing large sets of synethic patient medical records.
 
 
-![MapD Immerse Synthetic Mass Example](https://raw.github.com/synthetichealth/syntheticusa/master/fhir-to-csv/images/viz-example.png "MapD Immerse Synthetic Mass Example")
+![MapD Immerse Synthetic Mass Example](https://raw.github.com/synthetichealth/syntheticusa/master/fhir-to-csv/viz-example.png "MapD Immerse Synthetic Mass Example")
 
 ## Usage
+
+This script writes to stdout.  To save, redirect stdout into a file.
 
 ```bash
 
 npm install 
 node index.js /path/to/fhir/json/directory/ > out.csv
 
-# to supress the csv header, useful to append to an existing csv
+# add -s to supress the csv header, useful to append to an existing csv
 node index.js -s -- /path/to/more/fhir/files >> out.csv
 
 ```
